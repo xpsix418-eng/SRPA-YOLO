@@ -1,0 +1,11 @@
+{
+  "paper_name": "SRPA-YOLO",
+  "variant": "SRPA-YOLO-N",
+  "canonical_config": "configs/models/srpa_yolon.yaml",
+  "canonical_checkpoint": "weights/srpa_yolo_dut_seed42_best.pt",
+  "sha256": "af5b6a5964bc6e6a4742954249a83cf33dad512587fd9ff4a2bf781675cff085",
+  "fused_parameters": 2163509,
+  "checkpoint_selection": "maximum validation mAP50-95",
+  "training_seed": 42,
+  "status": "final"
+}

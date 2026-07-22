@@ -1,0 +1,43 @@
+[
+  {
+    "name": "yolov8n",
+    "path": "weights/yolov8n.pt",
+    "params_m": 3.006,
+    "imgsz": 640,
+    "device": "cuda:0",
+    "precision": "fp16",
+    "fused": true,
+    "forward_mean_ms": 15.3214,
+    "nms_mean_ms": 1.039,
+    "mean_ms": 16.3604,
+    "p50_ms": 16.0804,
+    "p95_ms": 20.9221,
+    "fps_mean": 61.12,
+    "iters": 300,
+    "status": "ok"
+  },
+  {
+    "name": "edgs_reproduction",
+    "path": "not_distributed",
+    "params_m": 3.091,
+    "imgsz": 640,
+    "device": "cuda:0",
+    "precision": "fp16",
+    "fused": true,
+    "forward_mean_ms": 21.0102,
+    "nms_mean_ms": 0.9942,
+    "mean_ms": 22.0043,
+    "p50_ms": 21.6204,
+    "p95_ms": 27.238,
+    "fps_mean": 45.45,
+    "iters": 300,
+    "status": "ok"
+  },
+  {
+    "paired_delta_ms": 5.6439,
+    "passed": false,
+    "protocol": "interleaved_ab_ba",
+    "warmup_per_model": 80,
+    "iterations_per_model": 300
+  }
+]
