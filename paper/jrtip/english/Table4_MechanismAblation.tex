@@ -1,0 +1,16 @@
+\begin{table*}[!t]
+\caption{Mechanism ablation on the deduplicated DUT Anti-UAV test set. Detection metrics are percentages\label{tab:mechanism}}
+\centering\srpatablesetup
+\begin{tabular}{p{0.27\textwidth}rrrrrr}
+\toprule
+Configuration & \shortstack{Params\\(M)} & \shortstack{Precision\\(\%)} & \shortstack{Recall\\(\%)} & \shortstack{AP@0.50\\(\%)} & \shortstack{\mapall{}\\(\%)} & \shortstack{AP@0.75\\(\%)}\\
+\midrule
+Full nonlinear head & 2.603 & 95.922 & 90.954 & 94.736 & 66.046 & 75.503\\
+Shared-48 + dense DFL KD & 2.093 & 96.152 & 90.954 & 94.836 & 65.363 & 74.929\\
+$+$ focused localization KD & 2.093 & 97.084 & 90.285 & 95.018 & 65.747 & 75.573\\
+$+$ transferred initialization & 2.093 & 96.484 & 92.945 & \textbf{95.493} & 66.425 & 75.472\\
+$+$ shared rank 64 & 2.128 & 96.122 & 92.157 & 95.366 & 66.956 & 77.146\\
+$+$ private rank 16 & 2.164 & 95.850 & 92.201 & 95.185 & \textbf{67.071} & \textbf{77.329}\\
+\bottomrule
+\end{tabular}
+\end{table*}

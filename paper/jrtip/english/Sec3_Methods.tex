@@ -1,0 +1,225 @@
+\section{Materials and Methods}
+
+\subsection{Dataset and Evaluation Protocol}
+The visible-light detection subset of DUT Anti-UAV is used to evaluate long-range single-class UAV detection. The official partition contains 5200 training images, 2600 validation images, and 2200 test images. The original aspect ratio is retained, and every image is letterboxed to $640\times640$ pixels during training and evaluation. Checkpoints are selected exclusively according to validation \mapall{}, after which the selected model is evaluated on the test partition.
+
+Image-level SHA-256 verification identified one duplicated image between the training and test partitions. The source files are retained for traceability, while the duplicated test image is excluded through a fixed evaluation manifest. The resulting test set contains 2199 images and 2244 annotated UAV instances. For scale-resolved analysis, target size is measured after the same letterbox transformation used by the detector. An object is categorized as tiny when its maximum side is below 16 pixels, small when it is between 16 and 32 pixels, and large when it is at least 32 pixels. These intervals reflect the apparent target sizes of the DUT Anti-UAV task.
+
+\subsection{Overall Network Architecture}
+SRPA-YOLO follows a one-stage dense-detection pipeline composed of a multiscale backbone, a lightweight bidirectional neck, and three prediction levels at strides 4, 8, and 16. Figure~\ref{fig:network} summarizes the complete data flow and the transformation from the training head to the deployment head.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{Fig1.pdf}
+\caption{Overall architecture of SRPA-YOLO. The multiscale backbone and bidirectional neck provide P2--P4 features. During training, shared and classification-private representations are optimized separately; exact fusion converts them into a single static deployment path\label{fig:network}}
+\end{figure*}
+
+\subsubsection{Multiscale Spatial Feature Extraction}
+Let $X_0\in\mathbb{R}^{3\times640\times640}$ be the input image. At backbone stage $l$, the feature map is written as
+\begin{equation}
+X_l=\mathcal{B}_l(X_{l-1})=\mathcal{A}_l\!\left(\operatorname{BN}(K_l*X_{l-1}+b_l)\right),
+\label{eq:backbone}
+\end{equation}
+where $K_l$ denotes the spatial convolution, $\operatorname{BN}$ denotes batch normalization, and $\mathcal{A}_l$ contains the SiLU activation and local C2f aggregation. The resulting P2, P3, P4, and P5 features have strides $s_l\in\{4,8,16,32\}$. For a target whose transformed maximum side is $d$ pixels, its approximate support on level $l$ is
+\begin{equation}
+n_l=\frac{d}{s_l}.
+\label{eq:targetsupport}
+\end{equation}
+Retaining P2 therefore gives a $d=8$ pixel UAV approximately two feature cells instead of one cell at stride 8. This higher spatial sampling density reduces the probability that an extremely small target is eliminated before prediction.
+
+\subsubsection{Lightweight Bidirectional Feature Fusion}
+The neck combines top-down semantic propagation and bottom-up spatial aggregation. For adjacent pyramid levels, the top-down feature $T_l$ and bottom-up feature $N_l$ are
+\begin{equation}
+T_l=\psi_l\!\left(\left[X_l,\operatorname{Up}(T_{l+1})\right]\right),\qquad
+N_l=\eta_l\!\left(\left[T_l,\operatorname{Down}(N_{l-1})\right]\right),
+\label{eq:neck}
+\end{equation}
+where $[\cdot,\cdot]$ denotes channel concatenation, $\operatorname{Up}$ is nearest-neighbor interpolation, $\operatorname{Down}$ is depthwise strided convolution, and $\psi_l$ and $\eta_l$ are compact C2f/Ghost feature mixers. The top-down path transfers semantic context to high-resolution maps, while the bottom-up path restores edge and displacement cues to deeper maps. This bidirectional exchange is particularly useful when a UAV has weak appearance but remains distinguishable through localized spatial contrast.
+
+\subsubsection{Context-Aware Feature Refinement}
+The high-resolution stage applies channel--spatial refinement, whereas the deepest stage aggregates a wider context. For a feature $F$, the refined response can be expressed as
+\begin{equation}
+\begin{aligned}
+\widetilde{F}&=F\odot M_c(F)\odot M_s(F),\\
+M_c(F)&=\sigma\!\left(g_c(\operatorname{AvgPool}F,\operatorname{MaxPool}F)\right),\\
+M_s(F)&=\sigma\!\left(g_s(\operatorname{Avg}_cF,\operatorname{Max}_cF)\right),
+\end{aligned}
+\label{eq:refinement}
+\end{equation}
+where $\odot$ is elementwise multiplication, $\sigma$ is the sigmoid function, and $g_c$ and $g_s$ are lightweight channel and spatial transformations. At P2/P3, the spatial term suppresses cloud edges, foliage, and building textures that resemble tiny UAVs. At the deepest level, pooled contextual responses enlarge the effective receptive field and help distinguish an isolated aerial target from repetitive local clutter. These modules form the retained feature extractor; the contribution of this work concerns the task allocation inside the prediction head.
+
+\subsubsection{P2--P4 Prediction Interface}
+The bidirectional neck outputs $N_l$ at $l\in\{2,3,4\}$. A scale-specific projection aligns each feature to the head input dimension,
+\begin{equation}
+\begin{aligned}
+F_l&=P_l*N_l,\qquad F_l\in\mathbb{R}^{C_l\times H_l\times W_l},\\
+(H_l,W_l)&\in\{(160,160),(80,80),(40,40)\}.
+\end{aligned}
+\label{eq:headinput}
+\end{equation}
+The three levels provide dense coverage for tiny and small UAVs while avoiding a runtime P5 prediction branch. The same SRPA allocation is applied independently at every level, allowing task separation without dynamic routing or scale-dependent control flow.
+
+\subsection{Shared Representation and Private-Rank Allocation}
+Conventional shared heads expose classification and localization to the same feature dictionary. SRPA instead retains a shared representation for both tasks and assigns a low-rank classification-private representation, as illustrated in Figure~\ref{fig:allocation}.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.86\textwidth]{Fig2.pdf}
+\caption{Task-feature allocation in a conventional shared head and the proposed SRPA head. The private representation contributes only to classification, and its Jacobian to the box output is identically zero\label{fig:allocation}}
+\end{figure*}
+
+For input feature $F_l$, the shared and classification-private RepConv stems produce
+\begin{equation}
+H_l^{s}=\phi_s^{(l)}(F_l)\in\mathbb{R}^{64\times H_l\times W_l},\qquad
+H_l^{p}=\phi_p^{(l)}(F_l)\in\mathbb{R}^{16\times H_l\times W_l}.
+\label{eq:features}
+\end{equation}
+Let $z_l^{box}$ contain $4K$ DFL logits with $K=16$ bins per coordinate and let $z_l^{cls}$ contain the UAV class logit. SRPA computes
+\begin{equation}
+z_l^{box}=W_l^{b}H_l^{s}+b_l^{b},
+\label{eq:box}
+\end{equation}
+\begin{equation}
+z_l^{cls}=W_l^{s}H_l^{s}+b_l^{s}+W_l^{p}H_l^{p}.
+\label{eq:cls}
+\end{equation}
+Here, the 64 and 16 channels are implementation-level representation dimensions, denoted by $r_s$ and $r_p$ below. They specify the available shared and private channel budgets; they do not assume that a learned convolution attains full algebraic rank. From Equations~\eqref{eq:box} and \eqref{eq:cls},
+\begin{equation}
+\frac{\partial z_l^{box}}{\partial H_l^{p}}=0,
+\label{eq:jacobian}
+\end{equation}
+which establishes direct computational independence of the box output from the classification-private representation. Upstream task interaction remains mediated by the shared representation learned during Stage I. Flattening spatial dimensions gives $H_l^s\in\mathbb{R}^{r_s\times N_l}$ and $H_l^p\in\mathbb{R}^{r_p\times N_l}$, where $N_l=H_lW_l$. The class-logit row space satisfies
+\begin{equation}
+\begin{aligned}
+z_l^{cls}-b_l^{cls}\mathbf{1}^{\top}
+&\in \operatorname{row}(H_l^s)+\operatorname{row}(H_l^p),\\
+\dim\!\left(\operatorname{row}(H_l^s)+\operatorname{row}(H_l^p)\right)
+&\le r_s+r_p.
+\end{aligned}
+\label{eq:rowspace}
+\end{equation}
+Equation~\eqref{eq:rowspace} gives an upper bound on the combined row-space dimension; the attained dimension depends on the learned branch ranks and their subspace overlap. It shows that classification may access up to $r_s+r_p=80$ representation dimensions, whereas localization is computed only from the $r_s=64$ shared dimensions. The private class projection is initialized as $W_l^p=0$, which, provided that the shared detector is unchanged at insertion, yields the function-preserving condition
+\begin{equation}
+f_{\mathrm{SRPA}}(x;W^p=0)=f_s(x),\qquad \forall x.
+\label{eq:identity}
+\end{equation}
+The expanded detector therefore begins refinement from the trained shared detector with an identical prediction function. During private refinement, the backbone, neck, shared stems, box projections, and shared class projections remain fixed; only $\phi_p$ and $W^p$ are optimized. This constraint leaves the established localization mapping unchanged in Stage II while providing additional class-specific capacity for low-contrast UAVs.
+
+\subsection{Exact Structural Re-Parameterization}
+Each RepConv stem contains linear convolution and normalization branches during training. A convolution kernel $K$ followed by batch normalization parameters $(\gamma,\beta,\mu,\sigma^2)$ is converted to
+\begin{equation}
+\widehat{K}=\frac{\gamma}{\sqrt{\sigma^2+\epsilon}}K,\qquad
+\widehat{b}=\beta+\frac{\gamma}{\sqrt{\sigma^2+\epsilon}}(b-\mu).
+\label{eq:bnfusion}
+\end{equation}
+After padding branch kernels to $3\times3$, equivalent branch kernels and biases are summed. Denote the resulting shared and private stems by $(K_s,b_s)$ and $(K_p,b_p)$, where $K_s\in\mathbb{R}^{64\times C\times3\times3}$ and $K_p\in\mathbb{R}^{16\times C\times3\times3}$. Their exact channel-wise fusion is
+\begin{equation}
+K_d=\begin{bmatrix}K_s\\K_p\end{bmatrix},\qquad
+b_d=\begin{bmatrix}b_s\\b_p\end{bmatrix}.
+\label{eq:stemfuse}
+\end{equation}
+For $K=16$ DFL bins and $n_c=1$ class, the corresponding $1\times1$ projections have $W_b\in\mathbb{R}^{4K\times64\times1\times1}$, $W_s\in\mathbb{R}^{n_c\times64\times1\times1}$, and $W_p\in\mathbb{R}^{n_c\times16\times1\times1}$. The deployed projections become
+\begin{equation}
+W_{box}^{d}=\begin{bmatrix}W_b&0\end{bmatrix},\qquad
+W_{cls}^{d}=\begin{bmatrix}W_s&W_p\end{bmatrix}.
+\label{eq:projfuse}
+\end{equation}
+For $H=[H_s;H_p]$, zero-padding the private columns of $W_{box}^{d}$ gives $W_{box}^{d}H=W_bH_s$, while concatenating the class projections gives $W_{cls}^{d}H=W_sH_s+W_pH_p$. The training-time decomposition is therefore converted into one 80-channel $3\times3$ convolution and one merged $1\times1$ projection per scale without changing the computed output apart from floating-point roundoff. Figure~\ref{fig:reparam} summarizes this process.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.92\columnwidth]{Fig3.pdf}
+\caption{Structural re-parameterization of the SRPA head. Parallel training representations provide task-specific capacity, while exact kernel and projection fusion produces a single-path deployment graph\label{fig:reparam}}
+\end{figure}
+
+Figure~\ref{fig:srpahead} details the single-scale head and its task-specific projections.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.92\columnwidth]{Fig4.pdf}
+\caption{Internal structure of the SRPA head. Shared features feed both output tasks, while the 16-channel private representation supplies an additive classification residual before deployment fusion\label{fig:srpahead}}
+\end{figure}
+
+\subsection{Objective Function and Two-Stage Optimization}
+The supervised objective is
+\begin{equation}
+\begin{aligned}
+\mathcal{L}_{sup}={}&\lambda_{box}\mathcal{L}_{CIoU}
++\lambda_{cls}\mathcal{L}_{BCE}
++\lambda_{dfl}\mathcal{L}_{DFL},\\
+(\lambda_{box},\lambda_{cls},\lambda_{dfl})={}&(7.5,0.5,1.5),
+\end{aligned}
+\label{eq:sup}
+\end{equation}
+where CIoU combines overlap, center-distance, and aspect-ratio penalties \cite{rezatofighi2019giou,zheng2020diou}; BCE supervises class confidence; and DFL models each box coordinate as a discrete distribution.
+
+A frozen RLRD-YOLO teacher regularizes the shared detector. With temperature $T=2$, class-response distillation is
+\begin{equation}
+\mathcal{L}_{clsKD}=T^2\operatorname{KL}\!\left(\sigma(z_t^{cls}/T)\,\Vert\,\sigma(z_s^{cls}/T)\right).
+\label{eq:clskd}
+\end{equation}
+For positive locations $\Omega_+$, dense localization distillation and confidence-focused localization distillation are
+\begin{equation}
+\mathcal{L}_{dflKD}=\frac{1}{N_+}\sum_{j\in\Omega_+}\operatorname{KL}\!\left(P_t^{(j)}\Vert P_s^{(j)}\right),
+\label{eq:dflkd}
+\end{equation}
+\begin{equation}
+\mathcal{L}_{focus}=\frac{\sum_{j\in\Omega_+}q_j^2\operatorname{KL}(P_t^{(j)}\Vert P_s^{(j)})}{\sum_{j\in\Omega_+}q_j^2+\epsilon},
+\label{eq:focus}
+\end{equation}
+where $q_j$ is teacher confidence. The Stage-I objective is
+\begin{equation}
+\mathcal{L}=\mathcal{L}_{sup}+0.25\mathcal{L}_{clsKD}+0.50\mathcal{L}_{dflKD}+0.125\mathcal{L}_{focus}.
+\label{eq:total}
+\end{equation}
+Stage II inserts the zero-output classification-private representation and optimizes only $\phi_p$ and $W^p$ from the function-preserving state in Equation~\eqref{eq:identity}. The teacher remains frozen throughout distillation. This schedule first transfers localization knowledge to the compact shared detector and then refines class confidence while the Stage-II box function is fixed.
+
+\subsection{Experimental Environment and Training Settings}
+Detailed training parameters are provided in Table~\ref{tab:environment}.
+
+\begin{table}[H]
+\caption{Experimental environment and training settings\label{tab:environment}}
+\centering\srpatablesetup
+\begin{tabular}{@{}p{0.29\columnwidth}p{0.63\columnwidth}@{}}
+\toprule
+Item & Setting\\
+\midrule
+Framework & Ultralytics 8.3.239 / PyTorch 2.9.0\\
+CUDA & 12.8\\
+GPU & NVIDIA GeForce RTX 5060, 8 GB\\
+Input size & $640\times640$\\
+Batch size & 32\\
+Epochs & 200\\
+Optimizer & SGD\\
+Initial learning rate & 0.01\\
+Momentum & 0.937\\
+Weight decay & $5\times10^{-4}$\\
+Workers & 2\\
+Data augmentation & HSV jitter, horizontal flip, translation, scale, and mosaic\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Metrics and Deployment Measurement}
+Precision and Recall are computed as
+\begin{equation}
+P=\frac{TP}{TP+FP},\qquad R=\frac{TP}{TP+FN}.
+\label{eq:pr}
+\end{equation}
+AP@0.50 and AP@0.75 integrate the precision--recall curve at IoU thresholds 0.50 and 0.75, respectively. The primary metric averages AP over ten thresholds,
+\begin{equation}
+\mathrm{mAP}_{0.50:0.95}=\frac{1}{10}\sum_{k=0}^{9}\mathrm{AP}_{0.50+0.05k}.
+\label{eq:map}
+\end{equation}
+Evaluation uses batch size 32, confidence floor 0.001, NMS IoU 0.7, and at most 300 detections per image. Matched Stage-II experiments use seeds 40, 41, and 42 with the same Stage-I shared basis and independently initialized classification-private parameters to evaluate the stability of private refinement across different initializations.
+
+For shared/private-width analysis, let $m_c$ and $a_c$ be validation \mapall{} and AP@0.75 for configuration $c$. Configurations within 0.003 of the highest validation \mapall{} form
+\begin{equation}
+\mathcal{C}_{\epsilon}=\left\{c:m_c\ge \max_j m_j-0.003\right\},
+\label{eq:selection}
+\end{equation}
+and the member with the highest AP@0.75 is selected, with AP@0.50 resolving an exact tie. This rule preserves the primary metric while favoring more accurate localization.
+
+Latency is measured at batch 1 and 640 pixels using FP16, fused convolution, forward inference plus NMS, 80 warm-up iterations, and 300 timed iterations. Each candidate and YOLOv8n are loaded in the same process and measured in alternating AB/BA order on the same GPU. Absolute latency and FPS are reported with the corresponding paired YOLOv8n control.
+
+The real-time design is evaluated at the level of the complete detector path rather than by FLOPs alone. The measured frame time includes model forwarding, prediction decoding, and NMS; CUDA synchronization is applied around each timed iteration. Structural fusion is completed before timing, and no training-only classification-private path, dynamic gate, or auxiliary prediction remains in the deployed graph. The resulting latency is therefore the cost paid by the operational detector. Parameter count is reported together with latency because model storage and memory traffic constrain embedded execution even when arithmetic throughput is sufficient.

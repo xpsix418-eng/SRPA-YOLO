@@ -1,0 +1,16 @@
+\begin{table}[H]
+\caption{Matched Stage-II seeds on the deduplicated DUT Anti-UAV test set (percent, mean $\pm$ sample standard deviation, $n=3$). All runs use the same Stage-I shared basis and independently initialize only the private parameters\label{tab:seeds}}
+\centering\srpatablesetup
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Metric (\%) & RLRD-YOLO & SRPA-YOLO & Paired diff.\\
+\midrule
+Precision & $95.964\pm0.766$ & $\mathbf{96.167\pm0.031}$ & $+0.204\pm0.736$\\
+Recall & $89.463\pm0.785$ & $\mathbf{92.172\pm0.112}$ & $+2.709\pm0.773$\\
+AP@0.50 & $94.661\pm0.106$ & $\mathbf{95.304\pm0.022}$ & $+0.644\pm0.109$\\
+\mapall{} & $65.199\pm0.639$ & $\mathbf{67.080\pm0.082}$ & $+1.881\pm0.721$\\
+AP@0.75 & $75.196\pm0.564$ & $\mathbf{77.345\pm0.233}$ & $+2.150\pm0.332$\\
+\bottomrule
+\end{tabular}
+\end{table}
+\vspace{-4pt}

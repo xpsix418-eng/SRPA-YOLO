@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="662.76pt" height="253.8pt" viewBox="0 0 662.76 253.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-19T15:27:40.273366</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 253.8 
+L 662.76 253.8 
+L 662.76 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 32.44824 145.86048 
+L 110.14416 145.86048 
+Q 118.04544 145.86048 118.04544 142.86672 
+L 118.04544 110.93328 
+Q 118.04544 107.93952 110.14416 107.93952 
+L 32.44824 107.93952 
+Q 24.54696 107.93952 24.54696 110.93328 
+L 24.54696 142.86672 
+Q 24.54696 145.86048 32.44824 145.86048 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #ffffff; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 157.55184 95.96448 
+L 268.16976 95.96448 
+Q 276.07104 95.96448 276.07104 92.97072 
+L 276.07104 61.03728 
+Q 276.07104 58.04352 268.16976 58.04352 
+L 157.55184 58.04352 
+Q 149.65056 58.04352 149.65056 61.03728 
+L 149.65056 92.97072 
+Q 149.65056 95.96448 157.55184 95.96448 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #a9c9ea; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 157.55184 193.26168 
+L 268.16976 193.26168 
+Q 276.07104 193.26168 276.07104 190.26792 
+L 276.07104 158.33448 
+Q 276.07104 155.34072 268.16976 155.34072 
+L 157.55184 155.34072 
+Q 149.65056 155.34072 149.65056 158.33448 
+L 149.65056 190.26792 
+Q 149.65056 193.26168 157.55184 193.26168 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #e8b6cf; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 328.74624 95.96448 
+L 413.02656 95.96448 
+Q 420.92784 95.96448 420.92784 92.97072 
+L 420.92784 61.03728 
+Q 420.92784 58.04352 413.02656 58.04352 
+L 328.74624 58.04352 
+Q 320.84496 58.04352 320.84496 61.03728 
+L 320.84496 92.97072 
+Q 320.84496 95.96448 328.74624 95.96448 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #f3b184; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 480.18744 95.96448 
+L 610.55856 95.96448 
+Q 618.45984 95.96448 618.45984 92.97072 
+L 618.45984 61.03728 
+Q 618.45984 58.04352 610.55856 58.04352 
+L 480.18744 58.04352 
+Q 472.28616 58.04352 472.28616 61.03728 
+L 472.28616 92.97072 
+Q 472.28616 95.96448 480.18744 95.96448 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #f2c879; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 480.18744 193.26168 
+L 610.55856 193.26168 
+Q 618.45984 193.26168 618.45984 190.26792 
+L 618.45984 158.33448 
+Q 618.45984 155.34072 610.55856 155.34072 
+L 480.18744 155.34072 
+Q 472.28616 155.34072 472.28616 158.33448 
+L 472.28616 190.26792 
+Q 472.28616 193.26168 480.18744 193.26168 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #a8d5ba; stroke: #49637a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 114.0948 126.9 
+Q 133.848 101.952 152.837772 77.968198 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 148.786743 79.862706 
+L 152.837772 77.968198 
+L 151.922761 82.345726 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #1f2a35; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 114.0948 126.9 
+Q 133.848 150.6006 152.813814 173.356466 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #c94747; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 151.789226 169.003281 
+L 152.813814 173.356466 
+L 148.716513 171.564225 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #c94747; stroke: #c94747; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 272.1204 77.004 
+Q 298.458 77.004 323.565763 77.004 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 319.565763 75.004 
+L 323.565763 77.004 
+L 319.565763 79.004 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #1f2a35; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 272.1204 174.3012 
+Q 298.458 131.8896 324.146795 90.522774 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #c94747; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 320.337539 92.865756 
+L 324.146795 90.522774 
+L 323.735627 94.975968 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #c94747; stroke: #c94747; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 416.9772 77.004 
+Q 446.607 77.004 475.006963 77.004 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 471.006963 75.004 
+L 475.006963 77.004 
+L 471.006963 79.004 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #1f2a35; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 449.8992 174.3012 
+Q 463.068 174.3012 475.006963 174.3012 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 471.006963 172.3012 
+L 475.006963 174.3012 
+L 471.006963 176.3012 
+z
+" clip-path="url(#peb115f81e3)" style="fill: #1f2a35; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 272.1204 84.4884 
+L 305.0424 111.9312 
+L 305.0424 174.3012 
+L 476.2368 174.3012 
+" clip-path="url(#peb115f81e3)" style="fill: none; stroke: #1f2a35; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(41.523544 124.09875)">Input Feature</text>
+    <!-- $F_l$ -->
+    <g style="fill: #1f2a35" transform="translate(67.0462 134.184062)">
+     <text>
+      <tspan x="0" y="-0.46875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'; fill: #1f2a35">F</tspan>
+      <tspan x="6.109985" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">l</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(176.415488 74.27775)">Shared RepConv</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(187.995175 84.363062)">64 channels</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(176.061581 171.578075)">Private RepConv</text>
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(187.995175 181.663387)">16 channels</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 9px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(348.646556 74.156484)">Concatenate</text>
+    <!-- $[H_s;H_p]$ -->
+    <g style="fill: #1f2a35" transform="translate(356.2614 83.580891)">
+     <text>
+      <tspan x="0" y="-0.046875" style="font-size: 9px; font-family: 'STIXGeneral'; fill: #1f2a35">[</tspan>
+      <tspan x="12.342564" y="-0.046875" style="font-size: 9px; font-family: 'STIXGeneral'; fill: #1f2a35">;</tspan>
+      <tspan x="26.214236" y="-0.046875" style="font-size: 9px; font-family: 'STIXGeneral'; fill: #1f2a35">]</tspan>
+      <tspan x="2.996994" y="-0.046875" style="font-style: italic; font-size: 9px; font-family: 'STIXGeneral'; fill: #1f2a35">H</tspan>
+      <tspan x="16.144164" y="-0.046875" style="font-style: italic; font-size: 9px; font-family: 'STIXGeneral'; fill: #1f2a35">H</tspan>
+      <tspan x="9.494995" y="1.14375" style="font-style: italic; font-size: 6.3px; font-family: 'STIXGeneral'; fill: #1f2a35">s</tspan>
+      <tspan x="22.642165" y="1.14375" style="font-style: italic; font-size: 6.3px; font-family: 'STIXGeneral'; fill: #1f2a35">p</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(499.673781 74.280875)">Classification Output</text>
+    <!-- $z_{cls}$ -->
+    <g style="fill: #1f2a35" transform="translate(539.273 84.366187)">
+     <text>
+      <tspan x="0" y="-0.71875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'; fill: #1f2a35">z</tspan>
+      <tspan x="3.889984" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">c</tspan>
+      <tspan x="6.997975" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">l</tspan>
+      <tspan x="8.943964" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">s</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 10px; font-family: 'Times New Roman', serif; fill: #1f2a35" transform="translate(506.613625 171.57495)">Box / DFL Output</text>
+    <!-- $z_{box}$ -->
+    <g style="fill: #1f2a35" transform="translate(538.123 181.660262)">
+     <text>
+      <tspan x="0" y="-0.71875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'; fill: #1f2a35">z</tspan>
+      <tspan x="3.889984" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">b</tspan>
+      <tspan x="7.389973" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">o</tspan>
+      <tspan x="10.889963" y="0.603125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'; fill: #1f2a35">x</tspan>
+     </text>
+    </g>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9px; font-family: 'Times New Roman', serif; text-anchor: middle; fill: #c94747" x="226.0296" y="219.2076" transform="rotate(-0 226.0296 219.2076)">Private rank affects classification only</text>
+   </g>
+   <g id="text_8">
+    <!-- $z_{box}=W_bH_s$ -->
+    <g transform="translate(525.2152 219.2076)">
+     <text>
+      <tspan x="0" y="-0.46875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'">z</tspan>
+      <tspan x="24.176564" y="-0.46875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'">W</tspan>
+      <tspan x="36.447165" y="-0.46875" style="font-style: italic; font-size: 10px; font-family: 'STIXGeneral'">H</tspan>
+      <tspan x="3.889984" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'">b</tspan>
+      <tspan x="7.389973" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'">o</tspan>
+      <tspan x="10.889963" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'">x</tspan>
+      <tspan x="32.506551" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'">b</tspan>
+      <tspan x="43.667151" y="0.853125" style="font-style: italic; font-size: 7px; font-family: 'STIXGeneral'">s</tspan>
+      <tspan x="15.882576" y="-0.46875" style="font-size: 10px; font-family: 'STIXGeneral'">=</tspan>
+     </text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="peb115f81e3">
+   <rect x="2.16" y="2.16" width="658.44" height="249.48"/>
+  </clipPath>
+ </defs>
+</svg>

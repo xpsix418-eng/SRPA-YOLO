@@ -1,0 +1,18 @@
+\section{相关工作}
+
+\subsection{实时与小目标检测}
+COCO 评估协议以多个 IoU 阈值上的平均 AP 衡量定位鲁棒性\cite{lin2014coco}。对小目标而言，连续下采样会在形成稳定响应前损失能量和相位信息；高分辨率金字塔虽能补偿，却使计算量随特征面积快速增长。YOLOv8 提供紧凑的无锚实现及可复现训练框架\cite{ultralytics2023}。由于 SRPA-YOLO 在该框架内构建，YOLOv8n 是本文的主结构与部署基线；YOLO11n 作为同期紧凑检测器对照，EDGS-YOLOv8、DRBD-YOLOv8 和 RLRD-YOLO 则用于衡量与 UAV 专用检测器的差异。
+
+硬件友好模块可降低高分辨率特征的代价。MobileNet 使用深度可分离卷积\cite{howard2017mobilenets}，GhostNet 通过廉价变换生成冗余特征\cite{han2020ghostnet}，FasterNet 强调实际 FLOPS 与内存访问的重要性\cite{chen2023fasternet}。本文骨干与颈部沿用 C2f、GhostConv、深度卷积下采样和部分卷积阶段。CBAM 组合通道与空间选择\cite{woo2018cbam}，EMA 以较少参数建模跨空间关系\cite{ouyang2023ema}；这些模块只作为已验证的基础结构保留，并非本文创新点。
+
+\subsection{反无人机基准与专用检测器}
+Anti-UAV 系列基准逐步扩展了可见光与红外跟踪条件\cite{zhao2022antiuav,jiang2023antiuav,huang2024antiuav410}。DUT Anti-UAV 检测子集包含大面积复杂背景与极端尺度变化，适合长距离单类 UAV 检测。YOLOv7-GS 针对复杂反无人机背景调整实时检测结构\cite{bo2024yolov7gs}；EDGS-YOLOv8 和 DRBD-YOLOv8 将轻量算子与多尺度增强结合\cite{huang2024edgs,jiang2024drbd}；RLRD-YOLO 强调轻量化与小目标鲁棒性的平衡\cite{li2025rlrd}。
+
+IASL-YOLO 将轻量骨干与自适应特征融合结合，BRA-YOLOv10 则联合多尺度表征与结构化通道剪枝\cite{yang2025iasl,zhang2025brayolo}。二者均通过重新分配骨干或特征金字塔中的计算量改善无人机检测。SRPA-YOLO 针对预测头内部的另一类效率瓶颈：约束分类与定位的特征行空间，仅向分类分配低秩私有残差，并通过精确融合消除训练期分解。因此，前两类方法侧重特征提取和金字塔效率，SRPA-YOLO 则侧重任务特定的检测头容量分配及静态部署等价性。
+
+VisDrone 等通用航拍基准包含多类别和更密集场景\cite{zhu2018visdrone}，适合作为后续外部泛化测试，但其任务语义与单类远距离 UAV 发现不同，不能把公开数值直接并入本文 DUT 对比。
+
+\subsection{任务冲突、蒸馏与可部署训练}
+TSD 与 TOOD 表明，分类置信度和定位精度在完全共享特征上可能具有不同最优点\cite{wu2020tsd,feng2021tood}。本文不是复制完整解耦头，而是在大部分空间表征共享的前提下进行低秩任务分配，且私有特征到边界框输出的雅可比恒为零。
+
+知识蒸馏将高容量教师的函数信息转移到紧凑学生\cite{hinton2015distilling}。Attention Transfer 与 FGD 操作中间特征\cite{zhang2018attentiontransfer,yang2022fgd}，Localization Distillation 则把离散回归分布作为结构化知识\cite{zheng2022ld}。最终训练仅保留分类响应蒸馏与密集/聚焦 DFL 蒸馏，不使用特征模仿或推理期辅助检测头。结构重参数化方面，RepVGG 表明线性卷积分支与 BN 可以转换为单个等效卷积\cite{ding2021repvgg}；本文将该代数用于共享/分类私有任务分解。
