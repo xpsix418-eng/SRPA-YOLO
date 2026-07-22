@@ -1,0 +1,7 @@
+# Copy this file to configs/datasets/dut_anti_uav.yaml and set path to your local dataset root.
+path: ../../datasets/DUT-Anti-UAV
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: UAV

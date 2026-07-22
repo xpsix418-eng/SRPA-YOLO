@@ -1,0 +1,15 @@
+model: weights/srpa_yolo_dut_seed42_best.pt
+data: configs/datasets/dut_anti_uav.yaml
+imgsz: 640
+batch: 32
+conf: 0.001
+iou: 0.7
+max_det: 300
+device: 0
+seed: 42
+latency:
+  reference: weights/yolov8n.pt
+  warmup: 80
+  iterations: 300
+  half: true
+

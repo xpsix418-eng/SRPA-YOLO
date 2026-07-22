@@ -17,6 +17,7 @@ wandb/
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.blg
 *.onnx
 *.engine
 *.torchscript
