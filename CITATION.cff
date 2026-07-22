@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+title: "SRPA-YOLO: Shared-Representation and Private-Rank Allocation for Real-Time Small-UAV Detection"
+message: "If you use this code or model, please cite the SRPA-YOLO article."
+type: software
+authors:
+  - family-names: Wang
+    given-names: Xianpu
+  - family-names: Zhi
+    given-names: Haijie
+  - family-names: Fei
+    given-names: Qing
+repository-code: "https://github.com/xpsix418-eng/SRPA-YOLO"
+license: AGPL-3.0
+version: 1.0.0
+date-released: 2026-07-22
+
