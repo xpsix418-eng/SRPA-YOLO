@@ -22,7 +22,6 @@ Prepared before any destructive cleanup. The original working directory is retai
 - Dataset YAML examples with repository-relative or environment-variable paths; no DUT Anti-UAV images or labels.
 - Training, evaluation, export, paired-latency, fusion-verification, dataset-check, duplicate-check, plotting, and result-reproduction entry points.
 - Formal independent-test summaries, rank/mechanism ablations, matched-seed summaries, latency JSON files, deduplication manifest, and checkpoint metadata/SHA-256.
-- Current JRTIP English and Chinese LaTeX sources, current PDFs, cited figures, editable SVG/Python figure sources, bibliography, and Springer class/style files required to compile.
 - License, citation metadata, environment specifications, README, reproducibility documentation, and smoke tests.
 
 ## Planned moves and renames
@@ -33,7 +32,11 @@ Prepared before any destructive cleanup. The original working directory is retai
 - Required implementation modules -> `srpa_yolo/` and a vendored minimal `ultralytics/` runtime where compatibility requires it.
 - Selected operational scripts -> stable names under `scripts/` and `tools/`.
 - Formal result summaries -> `results/main_results/`, `results/ablations/`, `results/latency/`, and `results/manifests/`.
-- `SRPA_YOLO_Drones/JRTIP_Submission/` -> `paper/jrtip/`, split into `english/`, `chinese/`, `figures/`, and `bibliography/` while preserving compilability.
+
+## Post-cleanup publication split
+
+- The current English manuscript, bibliography, compiled PDF, cited figures, and editable figure sources are distributed as a separate submission ZIP.
+- No manuscript source, journal template, or paper figure is retained in the public reproducibility-code repository.
 
 ## Uncertain items retained outside the public release pending manual review
 

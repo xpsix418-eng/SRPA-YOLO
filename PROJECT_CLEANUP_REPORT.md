@@ -10,7 +10,7 @@
 
 ## Cleanup outcome
 
-The archived workspace contains 1,363 tracked paths and approximately 827.0 MB of local files. The public release contains 390 prospective tracked paths and approximately 44.8 MB, a physical-size reduction of about 94.6%. Comparing path names, 1,104 archived paths are excluded from the release, 259 paths are retained at the same location, and 131 paths are new or moved into the public layout.
+The archived workspace contains 1,363 tracked paths and approximately 827.0 MB of local files. After separating the manuscript from GitHub, the public release contains 326 tracked paths and approximately 28.5 MB, a physical-size reduction of about 96.6%. The public branch contains only the implementation, reproducibility configurations, formal experimental evidence, compact required checkpoints, tests, and documentation.
 
 ### Excluded content
 
@@ -28,7 +28,6 @@ The detailed category inventory is in `cleanup_inventory.md`; all excluded mater
 - Canonical Stage-I and Stage-II model/experiment configurations.
 - Four compact checkpoints needed by the two-stage protocol and their SHA-256 values.
 - Formal main results, ablations, matched-seed records, paired-latency records, deduplicated test membership, and scale manifest.
-- Current Journal of Real-Time Image Processing English and Chinese LaTeX sources/PDFs, bibliography, cited figures, editable SVGs, figure scripts, and source CSV/JSON records.
 - Public training, evaluation, export, fusion, latency, plotting, dataset-audit, duplicate-audit, and result-reproduction entry points.
 
 ### Main moves and renames
@@ -42,8 +41,6 @@ The detailed category inventory is in `cleanup_inventory.md`; all excluded mater
 | stable public API | `srpa_yolo/` |
 | compatible runtime | `ultralytics/` |
 | operational entry points | `scripts/` and `tools/` |
-| current manuscript | `paper/jrtip/english/` and `paper/jrtip/chinese/` |
-| shared paper sources | `paper/jrtip/figures/` and `paper/jrtip/bibliography/` |
 | formal evidence | `results/main_results/`, `results/ablations/`, `results/multiseed/`, and `results/latency/` |
 
 ## Final directory tree
@@ -79,11 +76,6 @@ SRPA-YOLO/
 |   |-- duplicate_check.py
 |   `-- plot_results.py
 |-- tests/
-|-- paper/jrtip/
-|   |-- english/
-|   |-- chinese/
-|   |-- figures/
-|   `-- bibliography/
 |-- results/
 |   |-- main_results/
 |   |-- ablations/
@@ -138,21 +130,15 @@ python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate w
 | Python syntax compilation | `compileall` passed for API, scripts, tools, and runtime |
 | absolute-path scan | no local `E:/Ayolo`, `E:\\Ayolo`, or `C:\\Users` paths in public project content |
 | credential scan | no GitHub token prefix, AWS access-key signature, or private-key block found |
-| JRTIP English build | `pdflatex -> bibtex -> pdflatex x2`; 12-page PDF; no undefined citations/references |
-| JRTIP Chinese build | `xelatex -> bibtex -> xelatex x2`; 11-page PDF; no undefined citations/references |
-| missing paper figures | none; `Fig1.pdf` through `Fig10.pdf` are present |
 | checkpoint hashes | all four files match `weights/SHA256SUMS` |
 | raw datasets | none included |
 | largest committed file | 9.06 MB Stage-I checkpoint; no file exceeds GitHub's 100 MB limit |
 
 The current machine did not retain the original CUDA training environment. Dynamic smoke and fusion checks were therefore rerun with CPU PyTorch in an external disposable environment. GPU latency was not remeasured during cleanup; the two original same-process paired records are preserved unchanged under `results/latency/`.
 
-## Paper outputs
+## Manuscript distribution
 
-- English source/PDF: `paper/jrtip/english/SRPA_YOLO_JRTIP_EN.tex` and `SRPA_YOLO_JRTIP_EN.pdf`.
-- Chinese source/PDF: `paper/jrtip/chinese/SRPA_YOLO_JRTIP_CN.tex` and `SRPA_YOLO_JRTIP_CN.pdf`.
-- Bibliography: `paper/jrtip/bibliography/references.bib`.
-- Editable figures and source data: `paper/jrtip/figures/`.
+The manuscript is intentionally excluded from GitHub. The independently delivered English submission ZIP contains the LaTeX source, compiled PDF, bibliography, all cited figures, and editable figure sources. Its clean-source build completed with 12 pages, no LaTeX errors, and no undefined citations or references.
 
 ## Large-file policy
 
@@ -178,4 +164,3 @@ No dataset, full training cache, TensorBoard history, video, or duplicate checkp
 2. Verify that local test membership matches `results/manifests/dut_test_dedup.txt`.
 3. Place the independently obtained YOLOv8n checkpoint at `weights/yolov8n.pt` before paired latency reproduction.
 4. GitHub was empty before this release branch was pushed; create or designate a default `main` branch before opening a pull request.
-5. The few source scripts for qualitative paper figures require `DUT_DATASET_ROOT` because raw source images are intentionally not redistributed.

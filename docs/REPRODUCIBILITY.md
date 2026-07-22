@@ -37,8 +37,3 @@ Run the command in the README. All detectors use the same letterbox preprocessin
 - Matched seeds: `results/multiseed/`
 - Paired latency: `results/latency/`
 - Test and checkpoint manifests: `results/manifests/`
-
-## Paper
-
-From `paper/jrtip/english`, run `pdflatex`, `bibtex`, and two additional `pdflatex` passes. The editable figure sources are in `paper/jrtip/figures/`.
-

@@ -23,7 +23,7 @@ wandb/
 *.torchscript
 *.tflite
 *.cache
-paper/jrtip/**/tmp/
+/paper/
 ultralytics.egg-info/
 # Historical experiment/config trees retained only in the local archival worktree.
 ultralytics/cfg/datasets/

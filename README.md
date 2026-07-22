@@ -69,7 +69,7 @@ See [MODEL_EXPORT.md](docs/MODEL_EXPORT.md).
 
 ## Paired latency
 
-The paper protocol measures batch 1, 640 pixels, FP16, fused forward plus NMS, 80 warm-ups, and 300 timed iterations in alternating AB/BA order:
+The formal latency protocol measures batch 1, 640 pixels, FP16, fused forward plus NMS, 80 warm-ups, and 300 timed iterations in alternating AB/BA order:
 
 ```bash
 python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate weights/srpa_yolo_dut_seed42_best.pt --candidate-name SRPA-YOLO --imgsz 640 --warmup 80 --iters 300 --out results/latency/reproduced_pair.json
@@ -101,11 +101,12 @@ ultralytics/   bundled compatible training and inference runtime
 scripts/       train, evaluate, fuse, export, latency, reproduce
 tools/         dataset, duplicate, and plotting utilities
 tests/         import, forward, and fusion smoke tests
-paper/jrtip/   current English/Chinese manuscript and editable figures
 results/       formal summaries, ablations, latency, and manifests
 weights/       four traceable checkpoints required by the two-stage protocol
 docs/          setup, reproducibility, and export instructions
 ```
+
+Manuscript sources are intentionally distributed separately and are not tracked in this reproducibility-code repository.
 
 ## Data and weights
 
@@ -118,4 +119,3 @@ Citation metadata is provided in [`CITATION.cff`](CITATION.cff). Please cite the
 ## License
 
 The bundled Ultralytics-derived runtime and this repository are distributed under the [AGPL-3.0 License](LICENSE).
-
