@@ -24,10 +24,6 @@ wandb/
 *.tflite
 *.cache
 /paper/
-/paper_source/
-/submission_package/
-/manuscript*/
-/SRPA_YOLO_Drones/
 *.docx
 *.xlsx
 *.zip
@@ -35,9 +31,3 @@ wandb/
 *.pdf
 *.svg
 ultralytics.egg-info/
-# Historical experiment/config trees retained only in the local archival worktree.
-ultralytics/cfg/datasets/
-ultralytics/cfg/experiments/
-ultralytics/cfg/models/v8/afnet*/
-ultralytics/cfg/models/v8/comparison/
-ultralytics/cfg/models/v8/spra-yolon.yaml

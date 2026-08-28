@@ -108,8 +108,6 @@ weights/       four traceable checkpoints required by the two-stage protocol
 docs/          setup, reproducibility, and export instructions
 ```
 
-Manuscript sources are intentionally distributed separately and are not tracked in this reproducibility-code repository.
-
 ## Data and weights
 
 No raw dataset is included. The repository contains only the final checkpoint and the three compact checkpoints required to reproduce the formal two-stage initialization. SHA-256 values are listed in `weights/SHA256SUMS` and `results/manifests/checkpoint_manifest.json`.
