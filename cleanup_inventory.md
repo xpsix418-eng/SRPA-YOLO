@@ -1,47 +1,46 @@
 # SRPA-YOLO Cleanup Inventory
 
-Prepared before any destructive cleanup. The original working directory is retained as the local archival worktree; the public release is assembled in a separate Git worktree so that no source artifact is lost during cleanup.
+This inventory records the final public-release boundary. The immutable safety references are branch `archive/pre-cleanup` and tag `pre-cleanup-backup`; the GitHub release is maintained on `cleanup/reproducible-release`.
 
-## Planned removal from the public release
+## Retained in the public repository
 
-- `paper_source/`: original Word manuscript, extracted text, and the complete MDPI template tree.
-- `SRPA_YOLO_Drones/backup_before_academic_polishing/`, `JRTIP_Academic_Polished_20260719/`, `JRTIP_Bilingual_Upload_20260719/`, `JRTIP_Official_Template_20260719/`, and `JRTIP_Upload_20260719/`: superseded submission snapshots.
-- MDPI/Drones-era manuscripts, archives, cover letters, and submission bundles, including `SRPA_YOLO_Drones_Submission.zip`.
-- LaTeX intermediates (`*.aux`, `*.log`, `*.out`, `*.toc`, `*.synctex.gz`, `*.fls`, `*.fdb_latexmk`) and rendered QA directories (`tmp/`, `rendered/`, `layout_check/`).
-- Failed or superseded AFNet experiment directories under `runs/afnet_hybrid_v20`, `v34`, `v42`, `v86`, `v92`, `v96`, `v97`, `v99`, and non-final candidate material in `runs/afnet_hybrid_v107`.
-- Cancelled cross-dataset robustness outputs under `results/cross_dataset_direct/` and unrelated Det-Fly/TIB-Net training artifacts.
-- Obsolete AFNet queue launchers, diagnostic scripts, document-generation scripts, historical model YAMLs, and modules unrelated to the final SRPA-YOLO path.
-- Duplicate checkpoints, `last.pt`, initialization checkpoints, caches, IDE settings, screenshots, and local-only absolute-path configurations.
-- Root-level `yolo11n.pt` and other third-party or baseline weights.
+- SRPA-YOLO source code and the compatible Ultralytics runtime required for training, evaluation, fusion, export, and checkpoint loading.
+- Portable model, dataset-example, and Stage-I/Stage-II experiment configurations.
+- Public training, evaluation, Stage-II initialization, export, paired-latency, fusion-verification, and result-reproduction scripts.
+- Formal DUT Anti-UAV result summaries, mechanism/rank ablations, matched-seed summaries, latency JSON records, deduplicated test manifest, and scale manifest.
+- Four compact protocol checkpoints and their SHA-256 values.
+- README, license, citation metadata, environment specifications, reproducibility documentation, and smoke tests.
 
-## Planned retention in the public release
+## Archived outside Git
 
-- Final SRPA-YOLO implementation: the `RepSharedPrivateResidualDetect` training and fusion behavior plus required Ultralytics runtime dependencies.
-- Canonical model definition derived from `ultralytics/cfg/models/v8/spra-yolon.yaml`, renamed and documented as SRPA-YOLO.
-- Stage-I and Stage-II formal experiment configurations for seed 42, plus the preserved matched-seed 40/41/42 result records.
-- Dataset YAML examples with repository-relative or environment-variable paths; no DUT Anti-UAV images or labels.
-- Training, evaluation, export, paired-latency, fusion-verification, dataset-check, duplicate-check, plotting, and result-reproduction entry points.
-- Formal independent-test summaries, rank/mechanism ablations, matched-seed summaries, latency JSON files, deduplication manifest, and checkpoint metadata/SHA-256.
-- License, citation metadata, environment specifications, README, reproducibility documentation, and smoke tests.
+- Final English LaTeX submission package, compiled manuscript, editable figure sources, and Cover Letter.
+- Formal raw evidence for the final SRPA-YOLO run, the Stage-I shared detector, SRPA/RLRD matched seeds, controlled DUT evaluations, and paired latency.
+- The local external archive is intentionally not referenced by runtime code or committed documentation.
+- A SHA-256 manifest is stored at the archive root.
 
-## Planned moves and renames
+## Deleted from the active workspace
 
-- `ultralytics/cfg/models/v8/spra-yolon.yaml` -> `configs/models/srpa_yolon.yaml`.
-- Final experiment YAMLs -> `configs/experiments/` with SRPA naming and portable paths.
-- Dataset definitions -> `configs/datasets/`.
-- Required implementation modules -> `srpa_yolo/` and a vendored minimal `ultralytics/` runtime where compatibility requires it.
-- Selected operational scripts -> stable names under `scripts/` and `tools/`.
-- Formal result summaries -> `results/main_results/`, `results/ablations/`, `results/latency/`, and `results/manifests/`.
+- MDPI/Drones manuscripts and templates, superseded JRTIP snapshots, duplicate PDFs/DOCX/TEX files, rendered QA images, and obsolete submission bundles.
+- Failed or superseded experimental candidate runs, duplicate and invalid checkpoints, `last.pt` copies not needed by the formal protocol, and cancelled cross-dataset artifacts.
+- Historical launchers, diagnostic scripts, discarded model configurations, temporary CSV files, screenshots, and spreadsheet-reader output.
+- `tmp`, smoke outputs, Python/pytest caches, IDE metadata, LaTeX intermediates, and package build artifacts.
+- Raw datasets and third-party baseline checkpoints that are not redistributed.
 
-## Post-cleanup publication split
+## Public moves and names
 
-- The current English manuscript, bibliography, compiled PDF, cited figures, and editable figure sources are distributed as a separate submission ZIP.
-- No manuscript source, journal template, or paper figure is retained in the public reproducibility-code repository.
+| Archived role | Public location |
+|---|---|
+| final SRPA-YOLO model | `configs/models/srpa_yolon.yaml` |
+| shared Stage-I model | `configs/models/srpa_shared64.yaml` |
+| formal protocol settings | `configs/experiments/` |
+| dataset template | `configs/datasets/dut_anti_uav.example.yaml` |
+| stable package API | `srpa_yolo/` |
+| compatible runtime | `ultralytics/` |
+| operational entry points | `scripts/` and `tools/` |
+| formal evidence | `results/` and `weights/` |
 
-## Uncertain items retained outside the public release pending manual review
+## Items requiring user-provided assets
 
-- Historical third-party comparison implementations embedded in the modified Ultralytics tree.
-- Full training logs and visualization images for failed candidates.
-- Det-Fly and TIB-Net experiment code/results, because the final paper does not report these experiments.
-- The four compact checkpoints required by the formal two-stage protocol are retained directly because each is below 10 MB; all four have published SHA-256 values.
-- Author submission metadata and cover-letter material not required to reproduce the article or experiments.
+- DUT Anti-UAV images and labels must be obtained under the dataset license.
+- The official Ultralytics YOLOv8n checkpoint used as the paired-latency reference is not redistributed.
+- Manuscript and submission files remain intentionally separate from the reproducibility repository.

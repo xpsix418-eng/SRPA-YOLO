@@ -2,25 +2,25 @@
 
 ## Scope and safety
 
-- Original workspace: retained locally on branch `archive/pre-cleanup` at commit `ee61be8`.
+- Original tracked workspace: retained on branch `archive/pre-cleanup` at commit `ee61be8`.
 - Backup tag: annotated tag `pre-cleanup-backup` (tag object `14f832e77655fcf52d3acc43fdc692d750656a97`).
 - Public release worktree: `cleanup/reproducible-release`.
-- No force push, history rewrite, raw dataset upload, or modification of the archived source workspace was performed.
+- No force push, history rewrite, raw dataset upload, or modification of the archive branch or tag was performed.
 - The cleanup inventory was created before files were excluded from the public worktree: `cleanup_inventory.md`.
 
 ## Cleanup outcome
 
-The archived workspace contains 1,363 tracked paths and approximately 827.0 MB of local files. After separating the manuscript from GitHub, the public release contains 326 tracked paths and approximately 28.5 MB, a physical-size reduction of about 96.6%. The public branch contains only the implementation, reproducibility configurations, formal experimental evidence, compact required checkpoints, tests, and documentation.
+The archived workspace contained 1,363 tracked paths and approximately 827.0 MB of local files. After separating the manuscript and raw training history from GitHub, the public release contains approximately 324 tracked paths and 28.4 MB, a physical-size reduction of about 96.6%. The public branch contains only the implementation, reproducibility configurations, formal experimental evidence, compact required checkpoints, tests, and documentation.
 
 ### Excluded content
 
 - Complete MDPI/Drones manuscript, template, cover-letter, and submission-package trees.
 - Superseded JRTIP snapshots, backup manuscripts, duplicate PDFs/DOCX/TEX files, and rendered QA folders.
-- Failed candidate experiment directories, cancelled cross-dataset experiments, queue launchers, diagnostic scripts, and historical model YAML trees.
+- Failed candidate experiment directories, cancelled cross-dataset experiments, queue launchers, diagnostic scripts, historical model YAML trees, and unused candidate detection-head implementations.
 - Duplicate and invalid checkpoints, `last.pt` files, caches, TensorBoard/W&B logs, screenshots, temporary CSV outputs, and local absolute-path configurations.
 - Python/pytest caches, IDE metadata, LaTeX logs/intermediates, package build metadata, and raw datasets.
 
-The detailed category inventory is in `cleanup_inventory.md`; all excluded material remains recoverable from the archive branch and tag.
+The detailed category inventory is in `cleanup_inventory.md`. Tracked historical material remains recoverable from the archive branch and tag; the selected formal raw runs and final English submission package are additionally stored in a local external archive with 297 verified SHA-256 entries.
 
 ### Retained content
 
@@ -122,13 +122,13 @@ python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate w
 | Check | Result |
 |---|---|
 | package installation | editable installation succeeded in an external Python 3.12 validation environment |
-| Python import/smoke/fusion tests | `3 passed` |
+| Python import/forward/fusion tests | `3 passed` |
 | minimal model forward | passed with finite predictions |
 | Stage-II initialization | exact decoded/raw difference `0.0`; private projection zero verified |
 | final checkpoint fusion at 640 | max absolute difference `2.44140625e-4`, mean `6.7095716e-6`, threshold `3e-4`; passed |
-| script argument parsing | all eight public scripts returned valid `--help` output |
+| script argument parsing | all eleven public scripts and tools returned valid `--help` output |
 | Python syntax compilation | `compileall` passed for API, scripts, tools, and runtime |
-| absolute-path scan | no local `E:/Ayolo`, `E:\\Ayolo`, or `C:\\Users` paths in public project content |
+| absolute-path scan | no local absolute filesystem paths in public project content |
 | credential scan | no GitHub token prefix, AWS access-key signature, or private-key block found |
 | checkpoint hashes | all four files match `weights/SHA256SUMS` |
 | raw datasets | none included |
@@ -138,7 +138,7 @@ The current machine did not retain the original CUDA training environment. Dynam
 
 ## Manuscript distribution
 
-The manuscript is intentionally excluded from GitHub. The independently delivered English submission ZIP contains the LaTeX source, compiled PDF, bibliography, all cited figures, and editable figure sources. Its clean-source build completed with 12 pages, no LaTeX errors, and no undefined citations or references.
+The manuscript is intentionally excluded from GitHub. The final English submission ZIP, compiled manuscript, editable figure sources, and Cover Letter are retained only in the verified local external archive.
 
 ## Large-file policy
 
@@ -156,11 +156,11 @@ No dataset, full training cache, TensorBoard history, video, or duplicate checkp
   - `55b0bda test: add smoke and fusion-equivalence checks`
 - Remote: `https://github.com/xpsix418-eng/SRPA-YOLO.git`.
 - Initial branch push: successful; no force push was used.
-- Final release commit: `chore: prepare public GitHub release` (this report and formal result evidence).
+- The final cleanup is committed normally on `cleanup/reproducible-release` and is intended for review through a pull request.
 
 ## Manual follow-up
 
 1. Obtain DUT Anti-UAV under its license and create `configs/datasets/dut_anti_uav.yaml` from the example.
 2. Verify that local test membership matches `results/manifests/dut_test_dedup.txt`.
 3. Place the independently obtained YOLOv8n checkpoint at `weights/yolov8n.pt` before paired latency reproduction.
-4. GitHub was empty before this release branch was pushed; create or designate a default `main` branch before opening a pull request.
+4. Review and merge the `cleanup/reproducible-release` pull request into the repository's default branch.

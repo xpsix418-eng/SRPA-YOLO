@@ -71,6 +71,8 @@ See [MODEL_EXPORT.md](docs/MODEL_EXPORT.md).
 
 The formal latency protocol measures batch 1, 640 pixels, FP16, fused forward plus NMS, 80 warm-ups, and 300 timed iterations in alternating AB/BA order:
 
+Obtain the official Ultralytics YOLOv8n checkpoint from the upstream Ultralytics release and place it at `weights/yolov8n.pt`. The file is intentionally not redistributed by this repository. The benchmark exits with a clear `FileNotFoundError` if either checkpoint is missing.
+
 ```bash
 python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate weights/srpa_yolo_dut_seed42_best.pt --candidate-name SRPA-YOLO --imgsz 640 --warmup 80 --iters 300 --out results/latency/reproduced_pair.json
 ```
@@ -81,7 +83,7 @@ python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate w
 python scripts/reproduce_results.py --config configs/experiments/srpa_yolo.yaml
 ```
 
-Add `--run-latency` after placing the YOLOv8n reference checkpoint at `weights/yolov8n.pt`.
+Add `--run-latency` only after placing the official YOLOv8n reference checkpoint at `weights/yolov8n.pt`.
 
 ## Main DUT Anti-UAV result
 

@@ -24,6 +24,16 @@ wandb/
 *.tflite
 *.cache
 /paper/
+/paper_source/
+/submission_package/
+/manuscript*/
+/SRPA_YOLO_Drones/
+*.docx
+*.xlsx
+*.zip
+*.tex
+*.pdf
+*.svg
 ultralytics.egg-info/
 # Historical experiment/config trees retained only in the local archival worktree.
 ultralytics/cfg/datasets/

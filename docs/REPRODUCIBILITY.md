@@ -30,6 +30,8 @@ Run the command in the README. All detectors use the same letterbox preprocessin
 
 `scripts/benchmark_latency.py` loads SRPA-YOLO and YOLOv8n in one process, fuses both, uses FP16 on CUDA, performs 80 warm-ups per model, and records 300 alternating AB/BA forward-plus-NMS measurements at batch 1 and 640 pixels.
 
+The YOLOv8n reference weight is not redistributed. Obtain the official Ultralytics checkpoint independently and place it at `weights/yolov8n.pt`; do not substitute a retrained or structurally modified checkpoint when reproducing the reported paired comparison.
+
 ## Result locations
 
 - Main comparison: `results/main_results/`

@@ -10,7 +10,7 @@
     "purpose": "post-selection paper ablation only; no test-guided model selection"
   },
   "models": {
-    "A0_V20_full_head": {
+    "A0_full_decoupled_head": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2602774,
@@ -32,7 +32,7 @@
         "AP95": 0.025331097465846834
       }
     },
-    "A1_V34_shared48_dense_DFL_KD": {
+    "A1_shared48_dense_DFL_KD": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2092661,
@@ -54,7 +54,7 @@
         "AP95": 0.028337452621047216
       }
     },
-    "A2_V42_shared48_focused_DFL_KD": {
+    "A2_shared48_focused_DFL_KD": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2092661,
@@ -76,7 +76,7 @@
         "AP95": 0.023120613774908056
       }
     },
-    "A3_V92_shared48_transferred_init": {
+    "A3_shared48_transferred_initialization": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2092661,
@@ -98,7 +98,7 @@
         "AP95": 0.033634569075590266
       }
     },
-    "A4_V96_shared64": {
+    "A4_shared64": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2128085,
@@ -120,7 +120,7 @@
         "AP95": 0.03341518525857696
       }
     },
-    "A5_V97_shared80": {
+    "A5_shared80": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2163509,
@@ -142,7 +142,7 @@
         "AP95": 0.03516501520758819
       }
     },
-    "A6_V99_shared48_private16": {
+    "A6_shared48_private16": {
       "status": "ok",
       "weights": "not_distributed",
       "params": 2128085,
