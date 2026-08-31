@@ -1,7 +1,7 @@
 [
   {
     "name": "yolov8n",
-    "path": "weights/yolov8n.pt",
+    "path": "weights/yolov8n_dut_seed42_best.pt",
     "params_m": 3.006,
     "imgsz": 640,
     "device": "cuda:0",

@@ -7,5 +7,15 @@
   "fused_parameters": 2163509,
   "checkpoint_selection": "maximum validation mAP50-95",
   "training_seed": 42,
-  "status": "final"
+  "status": "final",
+  "paper_main_result_run_id": "srpa_final_seed42",
+  "paper_main_result_file": "results/main_results/dut_main_comparison.json",
+  "paper_main_result_key": "SRPA-YOLO",
+  "yolov8n_control": {
+    "run_id": "yolov8n_dut_seed42",
+    "checkpoint": "weights/yolov8n_dut_seed42_best.pt",
+    "sha256": "7f2c45fca8c36dc78a1b725fa4b904f95ac8111bb03b0b03ddb0c92b81d5d0c8",
+    "checkpoint_selection": "maximum validation mAP50-95",
+    "training_seed": 42
+  }
 }

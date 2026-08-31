@@ -1,5 +1,8 @@
 {
   "protocol": {
+    "experiment_role": "matched_seed_stability_experiment",
+    "canonical_main_result": false,
+    "scope_note": "Stage-II private-parameter initialization repeats; these checkpoints are distinct from the canonical seed-42 checkpoint used in the main comparison.",
     "data": "configs\\datasets\\dut_anti_uav.yaml",
     "split": "test",
     "imgsz": 640,

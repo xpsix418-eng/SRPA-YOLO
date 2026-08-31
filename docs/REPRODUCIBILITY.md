@@ -2,7 +2,7 @@
 
 ## Environment
 
-Create the environment with `pip install -r requirements.txt` or `conda env create -f environment.yml`. The reported system used Python 3.11, PyTorch 2.3.0, CUDA 12.1, and an NVIDIA GeForce RTX 5060 Laptop GPU.
+Create the environment with `pip install -r requirements.txt` or `conda env create -f environment.yml`. The reported system used Ultralytics 8.3.239, Python 3.11.9, PyTorch 2.9.0, CUDA 12.8, and an NVIDIA GeForce RTX 5060 GPU.
 
 ## Data preparation
 
@@ -30,7 +30,9 @@ Run the command in the README. All detectors use the same letterbox preprocessin
 
 `scripts/benchmark_latency.py` loads SRPA-YOLO and YOLOv8n in one process, fuses both, uses FP16 on CUDA, performs 80 warm-ups per model, and records 300 alternating AB/BA forward-plus-NMS measurements at batch 1 and 640 pixels.
 
-The YOLOv8n reference weight is not redistributed. Obtain the official Ultralytics checkpoint independently and place it at `weights/yolov8n.pt`; do not substitute a retrained or structurally modified checkpoint when reproducing the reported paired comparison.
+The paper comparison uses the included DUT Anti-UAV YOLOv8n checkpoint `weights/yolov8n_dut_seed42_best.pt`, trained with seed 42 and selected by validation mAP@0.50:0.95. Its SHA-256 is recorded in `weights/SHA256SUMS`. The upstream COCO checkpoint is not the paper's latency control.
+
+The canonical main-table seed-42 result and the matched-seed seed-42 stability run use different checkpoints. Their run IDs, checkpoint hashes, result files, and roles are explicitly separated in `results/manifests/result_provenance.json`.
 
 ## Result locations
 

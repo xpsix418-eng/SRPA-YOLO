@@ -8,8 +8,7 @@ max_det: 300
 device: 0
 seed: 42
 latency:
-  reference: weights/yolov8n.pt
+  reference: weights/yolov8n_dut_seed42_best.pt
   warmup: 80
   iterations: 300
   half: true
-

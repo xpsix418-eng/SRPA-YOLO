@@ -1,4 +1,10 @@
 {
+  "run_id": "rlrd_matched_seed42",
+  "experiment_role": "matched_seed_stability_run",
+  "canonical_main_result": false,
+  "checkpoint_selection": "maximum validation mAP50-95",
+  "checkpoint_sha256": "da205c39acb3ad0ef6b6a823f4ae7a28463adc537c77d78e88c93fb78076f8eb",
+  "result_scope": "independent deduplicated DUT test evaluation for the matched-seed experiment; distinct from the canonical paper main-result checkpoint",
   "method": "rlrd",
   "seed": 42,
   "weights": "not_distributed",

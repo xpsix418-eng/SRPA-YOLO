@@ -1,4 +1,10 @@
 {
+  "run_id": "srpa_private_reinit_seed40",
+  "experiment_role": "matched_seed_stability_run",
+  "canonical_main_result": false,
+  "checkpoint_selection": "maximum validation mAP50-95",
+  "checkpoint_sha256": "f525c3ca4884ba51534e4db52b227ec38157e0a3ba8a8944810c4c8212094513",
+  "result_scope": "independent deduplicated DUT test evaluation for the matched-seed experiment; distinct from the canonical paper main-result checkpoint",
   "method": "srpa",
   "seed": 40,
   "weights": "not_distributed",

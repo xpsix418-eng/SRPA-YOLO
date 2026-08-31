@@ -1,0 +1,53 @@
+{
+  "authoritative_source": "final journal manuscript experimental tables",
+  "environment": {
+    "ultralytics": "8.3.239",
+    "python": "3.11.9",
+    "pytorch": "2.9.0+cu128",
+    "cuda": "12.8",
+    "gpu": "NVIDIA GeForce RTX 5060, 8151 MiB"
+  },
+  "canonical_main_result": {
+    "run_id": "srpa_final_seed42",
+    "training_seed": 42,
+    "checkpoint": "weights/srpa_yolo_dut_seed42_best.pt",
+    "checkpoint_sha256": "af5b6a5964bc6e6a4742954249a83cf33dad512587fd9ff4a2bf781675cff085",
+    "checkpoint_selection": "maximum validation mAP50-95",
+    "evaluation_split": "deduplicated DUT Anti-UAV test set, 2199 images",
+    "result_file": "results/main_results/dut_main_comparison.json",
+    "result_key": "SRPA-YOLO",
+    "source_evaluation_record_sha256": "ef8db23e4c187e5410bcc313a7c56e36e503dd6aa144e2ec103e9138cadf17af",
+    "metrics": {
+      "precision": 0.9584968692245645,
+      "recall": 0.9220142602495544,
+      "map50": 0.9518453253859366,
+      "map5095": 0.6707128232868641,
+      "ap75": 0.7732925656639662
+    }
+  },
+  "matched_seed_experiment": {
+    "purpose": "stability analysis of Stage-II private-parameter initialization",
+    "shared_stage1_basis": true,
+    "canonical_main_result": false,
+    "result_directory": "results/multiseed",
+    "seed42_run_id": "srpa_private_reinit_seed42",
+    "seed42_checkpoint_sha256": "421fd771181427860a26d4dcf673030e53d811e97399f507902dd47bef0828d0",
+    "note": "The matched-seed seed-42 checkpoint is a separate Stage-II repeat and must not be substituted for the canonical main-result checkpoint."
+  },
+  "yolov8n_control": {
+    "run_id": "yolov8n_dut_seed42",
+    "training_seed": 42,
+    "checkpoint": "weights/yolov8n_dut_seed42_best.pt",
+    "checkpoint_sha256": "7f2c45fca8c36dc78a1b725fa4b904f95ac8111bb03b0b03ddb0c92b81d5d0c8",
+    "checkpoint_selection": "maximum validation mAP50-95",
+    "result_file": "results/main_results/dut_main_comparison.json",
+    "result_key": "YOLOv8n"
+  },
+  "paper_latency": {
+    "protocol": "batch 1, 640 pixels, FP16, fused forward plus NMS, 80 warm-ups, 300 timed iterations, same-process AB/BA",
+    "round1": "results/latency/srpa_yolo_round1.json",
+    "round2": "results/latency/srpa_yolo_round2.json",
+    "candidate_checkpoint_sha256": "af5b6a5964bc6e6a4742954249a83cf33dad512587fd9ff4a2bf781675cff085",
+    "reference_checkpoint_sha256": "7f2c45fca8c36dc78a1b725fa4b904f95ac8111bb03b0b03ddb0c92b81d5d0c8"
+  }
+}

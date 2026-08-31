@@ -16,7 +16,7 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-The reported experiments used Python 3.11, PyTorch 2.3.0, CUDA 12.1, and an NVIDIA GeForce RTX 5060 Laptop GPU. See [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md).
+The reported experiments used Ultralytics 8.3.239, Python 3.11.9, PyTorch 2.9.0, CUDA 12.8, and an NVIDIA GeForce RTX 5060 GPU. See [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md).
 
 ## Dataset
 
@@ -71,10 +71,10 @@ See [MODEL_EXPORT.md](docs/MODEL_EXPORT.md).
 
 The formal latency protocol measures batch 1, 640 pixels, FP16, fused forward plus NMS, 80 warm-ups, and 300 timed iterations in alternating AB/BA order:
 
-Obtain the official Ultralytics YOLOv8n checkpoint from the upstream Ultralytics release and place it at `weights/yolov8n.pt`. The file is intentionally not redistributed by this repository. The benchmark exits with a clear `FileNotFoundError` if either checkpoint is missing.
+The paired control is the DUT Anti-UAV YOLOv8n checkpoint trained with seed 42 and selected by validation mAP@0.50:0.95. Its exact checkpoint and SHA-256 are included as `weights/yolov8n_dut_seed42_best.pt`; substituting the upstream COCO checkpoint does not reproduce the paper comparison.
 
 ```bash
-python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate weights/srpa_yolo_dut_seed42_best.pt --candidate-name SRPA-YOLO --imgsz 640 --warmup 80 --iters 300 --out results/latency/reproduced_pair.json
+python scripts/benchmark_latency.py --reference weights/yolov8n_dut_seed42_best.pt --candidate weights/srpa_yolo_dut_seed42_best.pt --candidate-name SRPA-YOLO --imgsz 640 --warmup 80 --iters 300 --out results/latency/reproduced_pair.json
 ```
 
 ## Reproduce the reported checkpoint evaluation
@@ -83,7 +83,7 @@ python scripts/benchmark_latency.py --reference weights/yolov8n.pt --candidate w
 python scripts/reproduce_results.py --config configs/experiments/srpa_yolo.yaml
 ```
 
-Add `--run-latency` only after placing the official YOLOv8n reference checkpoint at `weights/yolov8n.pt`.
+Add `--run-latency` to reproduce the paired benchmark with the included DUT-trained YOLOv8n control.
 
 ## Main DUT Anti-UAV result
 
@@ -104,13 +104,13 @@ scripts/       train, evaluate, fuse, export, latency, reproduce
 tools/         dataset, duplicate, and plotting utilities
 tests/         import, forward, and fusion smoke tests
 results/       formal summaries, ablations, latency, and manifests
-weights/       four traceable checkpoints required by the two-stage protocol
+weights/       traceable SRPA training checkpoints and the DUT-trained YOLOv8n control
 docs/          setup, reproducibility, and export instructions
 ```
 
 ## Data and weights
 
-No raw dataset is included. The repository contains only the final checkpoint and the three compact checkpoints required to reproduce the formal two-stage initialization. SHA-256 values are listed in `weights/SHA256SUMS` and `results/manifests/checkpoint_manifest.json`.
+No raw dataset is included. The repository contains the final SRPA checkpoint, the three checkpoints required by the two-stage protocol, and the DUT-trained YOLOv8n control used in the paper. SHA-256 values are listed in `weights/SHA256SUMS`; experiment-to-checkpoint lineage is recorded in `results/manifests/result_provenance.json`.
 
 ## Citation
 

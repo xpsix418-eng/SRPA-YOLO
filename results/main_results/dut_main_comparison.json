@@ -1,5 +1,7 @@
 {
   "protocol": {
+    "authoritative_for_paper": true,
+    "source_evaluation_record_sha256": "ef8db23e4c187e5410bcc313a7c56e36e503dd6aa144e2ec103e9138cadf17af",
     "data": "configs\\datasets\\dut_anti_uav.yaml",
     "split": "test",
     "images": 2199,
@@ -10,7 +12,7 @@
     "checkpoint_selection": "validation mAP50-95"
   },
   "models": {
-    "RLRD-YOLO_official_reproduction": {
+    "RLRD-YOLO_reproduction": {
       "status": "ok",
       "weights": "not_distributed",
       "precision": 0.9578149467442408,
@@ -34,6 +36,9 @@
     "SRPA-YOLO": {
       "status": "ok",
       "weights": "weights\\srpa_yolo_dut_seed42_best.pt",
+      "run_id": "srpa_final_seed42",
+      "checkpoint_sha256": "af5b6a5964bc6e6a4742954249a83cf33dad512587fd9ff4a2bf781675cff085",
+      "result_role": "canonical_paper_main_result",
       "params": 2163509,
       "precision": 0.9584968692245645,
       "recall": 0.9220142602495544,
@@ -55,7 +60,9 @@
     },
     "YOLOv8n": {
       "status": "ok",
-      "weights": "not_distributed",
+      "weights": "weights\\yolov8n_dut_seed42_best.pt",
+      "run_id": "yolov8n_dut_seed42",
+      "checkpoint_sha256": "7f2c45fca8c36dc78a1b725fa4b904f95ac8111bb03b0b03ddb0c92b81d5d0c8",
       "params": 3005843,
       "precision": 0.9276230700123452,
       "recall": 0.8395873166126707,
